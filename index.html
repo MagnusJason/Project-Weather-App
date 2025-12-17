@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmosphere - Weather Forecast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="weather-background">
+        <div class="weather-overlay"></div>
+        <div class="floating-elements"></div>
+    </div>
+    
+    <main class="container">
+        <header class="header">
+            <h1 class="logo">Atmosphere</h1>
+            <div class="unit-toggle">
+                <button class="unit-btn active" data-unit="F">°F</button>
+                <button class="unit-btn" data-unit="C">°C</button>
+            </div>
+        </header>
+
+        <section class="search-section">
+            <form class="search-form" id="search-form">
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input 
+                        type="text" 
+                        id="location-input" 
+                        class="search-input" 
+                        placeholder="Search for a city..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="weather-display hidden" id="weather-display">
+            <div class="current-weather">
+                <div class="location-info">
+                    <h2 class="city-name" id="city-name">--</h2>
+                    <p class="date-time" id="date-time">--</p>
+                </div>
+                
+                <div class="temperature-display">
+                    <div class="weather-icon-wrapper">
+                        <img src="" alt="Weather icon" class="weather-icon" id="weather-icon">
+                    </div>
+                    <div class="temp-info">
+                        <span class="temperature" id="temperature">--</span>
+                        <span class="temp-unit">°</span>
+                    </div>
+                    <p class="weather-description" id="weather-description">--</p>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail-card">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <div class="detail-info">
+                            <span class="detail-label">Feels Like</span>
+                            <span class="detail-value" id="feels-like">--°</span>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                        <div class="detail-info">
+                            <span class="detail-label">Humidity</span>
+                            <span class="detail-value" id="humidity">--%</span>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                        </svg>
+                        <div class="detail-info">
+                            <span class="detail-label">Wind</span>
+                            <span class="detail-value" id="wind-speed">-- mph</span>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                        </svg>
+                        <div class="detail-info">
+                            <span class="detail-label">UV Index</span>
+                            <span class="detail-value" id="uv-index">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forecast-section">
+                <h3 class="forecast-title">7-Day Forecast</h3>
+                <div class="forecast-grid" id="forecast-grid">
+                    <!-- Forecast cards will be inserted here -->
+                </div>
+            </div>
+
+            <div class="weather-gif" id="weather-gif">
+                <img src="" alt="Weather GIF" id="gif-display">
+            </div>
+        </section>
+
+        <section class="loading-section hidden" id="loading-section">
+            <div class="loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <p class="loading-text">Fetching weather data...</p>
+        </section>
+
+        <section class="error-section hidden" id="error-section">
+            <div class="error-content">
+                <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 8v4M12 16h.01"></path>
+                </svg>
+                <h3 class="error-title">Location Not Found</h3>
+                <p class="error-message" id="error-message">Please try searching for a different city.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Powered by <a href="https://www.visualcrossing.com/" target="_blank">Visual Crossing</a> & <a href="https://giphy.com/" target="_blank">Giphy</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
